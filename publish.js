@@ -36,11 +36,11 @@ try {
     stdio: "inherit",
   });
 
-  console.log("Adding changes to git...");
-  execSync("git add package.json package-lock.json", { stdio: "inherit" });
+  // console.log("Adding changes to git...");
+  // execSync("git add package.json package-lock.json", { stdio: "inherit" });
 
-  console.log(`Committing with message: "${commitMsg}"`);
-  execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
+  // console.log(`Committing with message: "${commitMsg}"`);
+  // execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
 
   console.log("Pushing to origin...");
   execSync("git push", { stdio: "inherit" });
