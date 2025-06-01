@@ -18,6 +18,7 @@ if (!["patch", "minor", "major"].includes(versionType)) {
   process.exit(1);
 }
 
+// npm run publish minor "chore: upgrade publish script process patch 2 :fire:"
 const commitMod = (message, ver) => {
   if (!message) {
     return `chore(release): bump version to v${ver}`;
