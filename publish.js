@@ -11,26 +11,34 @@ process.env.PUBLISH_IN_PROGRESS = "true";
 const versionType = process.argv[2] || "patch";
 
 if (!["patch", "minor", "major"].includes(versionType)) {
-  console.error("Invalid version type! Use patch, minor, or major.");
+  console.error(
+    `${versionType} is an ` +
+      "invalid version type! Use patch, minor, or major."
+  );
   process.exit(1);
 }
 
 try {
+  const commitMsg = `chore(release): bump version to ${
+    require("./package.json").version
+  }`;
+
+  const codeCommitMsg = process.argv[3] || `${commitMsg} code change`;
+
   console.log("Adding all changes to git...");
   execSync("git add -A", { stdio: "inherit" });
-  console.log(
-    `Bumping version with npm version ${versionType} --no-git-tag-version ...`
-  );
-  execSync(`npm version ${versionType} --no-git-tag-version`, {
+
+  console.log(`Committing with message: "${codeCommitMsg}"`);
+  execSync(`git commit -m "${codeCommitMsg}"`, { stdio: "inherit" });
+
+  console.log(`Bumping version with npm version ${versionType}...`);
+  execSync(`npm version ${versionType}`, {
     stdio: "inherit",
   });
 
   console.log("Adding changes to git...");
   execSync("git add package.json package-lock.json", { stdio: "inherit" });
 
-  const commitMsg = `chore(release): bump version to ${
-    require("./package.json").version
-  }`;
   console.log(`Committing with message: "${commitMsg}"`);
   execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
 
