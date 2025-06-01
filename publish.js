@@ -18,12 +18,28 @@ if (!["patch", "minor", "major"].includes(versionType)) {
   process.exit(1);
 }
 
-try {
-  const commitMsg = `chore(release): bump version to ${
-    require("./package.json").version
-  }`;
+const commitMod = (message, ver) => {
+  if (!message) {
+    return `chore(release): bump version to v${ver}`;
+  } else if (message.includes(":")) {
+    const modifyer = message.split(":").map((msg, i) => {
+      if (i === 1 && msg.startsWith(" ")) {
+        return " v" + ver + msg;
+      } else {
+        return msg;
+      }
+    });
+    return modifyer.join(":");
+  } else {
+    return `chore(release): bump version to v${ver} code change`;
+  }
+};
 
-  const codeCommitMsg = process.argv[3] || `${commitMsg} code change`;
+try {
+  const packageVersion = require("./package.json");
+  const commitMsg = commitMod(process.argv[3], packageVersion.version);
+
+  const codeCommitMsg = commitMsg ;
 
   console.log("Adding all changes to git...");
   execSync("git add -A", { stdio: "inherit" });
@@ -35,12 +51,6 @@ try {
   execSync(`npm version ${versionType}`, {
     stdio: "inherit",
   });
-
-  // console.log("Adding changes to git...");
-  // execSync("git add package.json package-lock.json", { stdio: "inherit" });
-
-  // console.log(`Committing with message: "${commitMsg}"`);
-  // execSync(`git commit -m "${commitMsg}"`, { stdio: "inherit" });
 
   console.log("Pushing to origin...");
   execSync("git push", { stdio: "inherit" });
