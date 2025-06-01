@@ -1,7 +1,5 @@
-// publish.js
 const { execSync } = require("child_process");
 
-// Read the version type argument (patch/minor/major) passed from npm script
 const versionType = process.argv[2] || "patch";
 
 if (!["patch", "minor", "major"].includes(versionType)) {
@@ -10,8 +8,8 @@ if (!["patch", "minor", "major"].includes(versionType)) {
 }
 
 try {
-  console.log(`Running npm version ${versionType}...`);
-  execSync(`npm version ${versionType}`, { stdio: "inherit" });
+  console.log(`Bumping version with npm version ${versionType} --no-git-tag-version ...`);
+  execSync(`npm version ${versionType} --no-git-tag-version`, { stdio: "inherit" });
 
   console.log("Building the package...");
   execSync("npm run build", { stdio: "inherit" });
