@@ -1,4 +1,13 @@
+// publish.js
 const { execSync } = require("child_process");
+
+// Prevent infinite loops if the script is somehow triggered repeatedly
+if (process.env.PUBLISH_IN_PROGRESS === "true") {
+  console.log("Publish script already running. Exiting to avoid loop.");
+  process.exit(0);
+}
+
+process.env.PUBLISH_IN_PROGRESS = "true";
 
 const versionType = process.argv[2] || "patch";
 
