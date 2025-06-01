@@ -1,0 +1,17 @@
+{
+  "name": "spreader-utils",
+  "version": "1.0.0",
+  "description": "A utility package for filtering and formatting name-value pairs with dynamic placeholders.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["utility", "spreader", "filter", "placeholder", "typescript"],
+  "author": "Edidiong Obodom <edijay17@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
