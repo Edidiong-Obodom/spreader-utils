@@ -16,6 +16,8 @@ if (!["patch", "minor", "major"].includes(versionType)) {
 }
 
 try {
+  console.log("Adding all changes to git...");
+  execSync("git add -A", { stdio: "inherit" });
   console.log(
     `Bumping version with npm version ${versionType} --no-git-tag-version ...`
   );
