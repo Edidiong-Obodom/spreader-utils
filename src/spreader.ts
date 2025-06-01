@@ -80,13 +80,13 @@ export const spreader = (
   const nameList = filtered
     .map(
       // Avoid leading comma only when starting from scratch
-      (entry, i) => `${!lastNumber && i === 0 ? "" : ", "}${entry.name}`
+      (entry, i) => `${lastNumber && i === 0 ? ", " : ""}${entry.name}`
     )
     .join(", ");
   const numberDollar = filtered
     .map(
       // Avoid leading comma only when starting from scratch
-      (_, i) => `${!lastNumber && i === 0 ? "" : ", "}$${lastNumber + i + 1}`
+      (_, i) => `${lastNumber && i === 0 ? ", " : ""}$${lastNumber + i + 1}`
     )
     .join(", ");
   const valueList = filtered.map((entry) => entry.value);
