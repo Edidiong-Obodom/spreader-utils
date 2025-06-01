@@ -28,6 +28,7 @@
  * - `name`: A comma-separated string of valid field names.
  * - `numberDollar`: A comma-separated string of `$`-prefixed placeholder numbers (e.g., `$1, $2`).
  * - `value`: A filtered array of values that passed the validity check.
+ * - `objectify`: An object mapping valid names to their corresponding values, for easy consumption in payloads or updates.
  *
  * ### Example
  * ```ts
@@ -36,14 +37,15 @@
  * // {
  * //   name: "username",
  * //   numberDollar: "$1",
- * //   value: ["johndoe"]
+ * //   value: ["johndoe"],
+ * //   objectify: { username: "johndoe" }
  * // }
  * ```
  */
 export const spreader = (
   names: string[],
   values: any[],
-  lastNumber: number,
+  lastNumber: number = 0,
   isValid: (val: any) => boolean = (val) => {
     if (val === null || val === undefined) return false;
 
@@ -57,16 +59,13 @@ export const spreader = (
     if (typeof val === "object" && !Array.isArray(val)) {
       return Object.keys(val).length > 0;
     }
-
     return true;
   }
 ) => {
   if (names.length !== values.length) {
-    return {
-      name: "",
-      numberDollar: "",
-      value: [],
-    };
+    throw new Error(
+      "spreader-utils error: The param ( names ) array length must be equal to the param ( values ) array length"
+    );
   }
 
   const filtered: { name: string; value: any; index: number }[] = [];
@@ -91,9 +90,15 @@ export const spreader = (
     .join(", ");
   const valueList = filtered.map((entry) => entry.value);
 
+  const objectified = filtered.reduce<Record<string, any>>((acc, curr) => {
+    acc[curr.name] = curr.value;
+    return acc;
+  }, {});
+
   return {
     name: nameList,
     numberDollar,
     value: valueList,
+    objectify: objectified,
   };
 };

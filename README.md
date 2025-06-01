@@ -19,6 +19,7 @@ A lightweight, flexible utility to dynamically filter and map lists of field nam
 
 ```bash
 npm install spreader
+```
 ````
 
 or with yarn:
@@ -34,10 +35,10 @@ yarn add spreader
 ### Basic Example
 
 ```ts
-import { spreader } from 'spreader';
+import { spreader } from "spreader";
 
-const names = ['firstName', 'lastName', 'age', 'email'];
-const values = ['John', 'Doe', null, ''];
+const names = ["firstName", "lastName", "age", "email"];
+const values = ["John", "Doe", null, ""];
 
 const result = spreader(names, values, 0);
 
@@ -46,7 +47,8 @@ console.log(result);
 {
   name: 'firstName, lastName',
   numberDollar: '$1, $2',
-  value: ['John', 'Doe']
+  value: ['John', 'Doe'],
+  objectify: { firstName: "John", lastName: "Doe" }
 }
 */
 ```
@@ -56,9 +58,9 @@ console.log(result);
 ## 🧩 Custom Validation Example
 
 ```ts
-const customValidator = (val: any) => typeof val === 'number' && val > 0;
+const customValidator = (val: any) => typeof val === "number" && val > 0;
 
-const result = spreader(['price', 'discount'], [0, 15], 0, customValidator);
+const result = spreader(["price", "discount"], [0, 15], 0, customValidator);
 /*
 {
   name: 'discount',
@@ -89,9 +91,12 @@ An object:
 
 ```ts
 {
-  name: string;         // Comma-separated names (e.g., "firstName, lastName")
+  name: string;        // Comma-separated names (e.g., "firstName, lastName")
   numberDollar: string; // Comma-separated placeholders (e.g., "$1, $2")
-  value: any[];         // Array of filtered values
+  value: any[];        // Array of filtered values
+  objectify: {         // Object form of filtered name-value pairs
+    [key: string]: any
+  }
 }
 ```
 
@@ -135,20 +140,20 @@ Copyright (c) 2025 Edidiong Obodom
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights  
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell  
-copies of the Software, and to permit persons to whom the Software is  
-furnished to do so, subject to the following conditions:  
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in  
+The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR  
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE  
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER  
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,  
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN  
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ```
 
@@ -162,5 +167,7 @@ THE SOFTWARE.
 ---
 
 Enjoy clean and reliable data mapping ✨
+
+```
 
 ```
