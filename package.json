@@ -1,6 +1,6 @@
 {
   "name": "spreader-utils",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A utility package for filtering and formatting name-value pairs with dynamic placeholders.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
