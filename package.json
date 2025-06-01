@@ -8,7 +8,9 @@
     "build": "tsc",
     "start": "ts-node src/examples/apiRequest.ts",
     "test": "jest",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "publish": "node publish.js",
+    "publish:patch": "npm version patch && npm run build && npm publish"
   },
   "files": [
     "dist",
