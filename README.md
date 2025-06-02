@@ -18,14 +18,14 @@ A lightweight, flexible utility to dynamically filter and map lists of field nam
 ## 📦 Installation
 
 ```bash
-npm install spreader
+npm install spreader-utils
 ```
 ````
 
 or with yarn:
 
 ```bash
-yarn add spreader
+yarn add spreader--utils
 ```
 
 ---
@@ -35,7 +35,7 @@ yarn add spreader
 ### Basic Example
 
 ```ts
-import { spreader } from "spreader";
+import { spreader } from "spreader-utils";
 
 const names = ["firstName", "lastName", "age", "email"];
 const values = ["John", "Doe", null, ""];
