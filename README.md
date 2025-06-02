@@ -25,7 +25,7 @@ npm install spreader-utils
 or with yarn:
 
 ```bash
-yarn add spreader--utils
+yarn add spreader-utils
 ```
 
 ---
