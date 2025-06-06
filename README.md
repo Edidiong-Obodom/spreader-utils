@@ -1,4 +1,3 @@
-````markdown
 # spreader
 
 A lightweight, flexible utility to dynamically filter and map lists of field names and values — particularly useful when building parameterized queries, payloads, or dynamic forms.
@@ -20,7 +19,6 @@ A lightweight, flexible utility to dynamically filter and map lists of field nam
 ```bash
 npm install spreader-utils
 ```
-````
 
 or with yarn:
 
