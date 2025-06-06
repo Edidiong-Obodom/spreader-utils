@@ -109,6 +109,7 @@ spreader-utils/
 │   ├── index.ts             # Main entry point for the package
 │   └── spreader.ts          # Core logic for filtering and mapping values
 ├── .gitignore               # Specifies ignored files in version control
+├── LICENSE.md               # Defines the project's licensing terms and usage rights
 ├── README.md                # Project documentation and usage guide
 ├── package-lock.json        # Ensures consistent dependency versions
 ├── package.json             # Contains package metadata and dependencies
