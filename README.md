@@ -1,32 +1,30 @@
-# spreader
+# Spreader Utils 📌
 
-A lightweight, flexible utility to dynamically filter and map lists of field names and values — particularly useful when building parameterized queries, payloads, or dynamic forms.
-
----
+A lightweight, flexible utility for dynamically filtering and mapping lists of field names and values—perfect for building parameterized queries, payloads, and dynamic forms.
 
 ## ✨ Features
 
-- Filters out `null`, `undefined`, empty strings, arrays, and objects by default
-- Auto-generates parameter names like `$1`, `$2`, etc.
-- Returns a structured object ready for database queries or template substitutions
-- Fully TypeScript-compatible
-- Customizable validation logic via `isValid` parameter
-
----
+- **Smart Filtering**: Automatically removes `null`, `undefined`, empty strings, arrays, and objects.
+- **Dynamic Parameterization**: Generates placeholders (`$1`, `$2`, etc.) for easy query building.
+- **Structured Output**: Returns a well-organized object ideal for database queries and template substitutions.
+- **TypeScript Support**: Fully compatible with TypeScript for safe and scalable development.
+- **Custom Validation**: Define custom logic via the `isValid` parameter.
 
 ## 📦 Installation
+
+Install using your favorite package manager:
 
 ```bash
 npm install spreader-utils
 ```
 
-or with yarn:
-
 ```bash
 yarn add spreader-utils
 ```
 
----
+```bash
+pnpm add spreader-utils
+```
 
 ## 🚀 Usage
 
@@ -37,51 +35,47 @@ import { spreader } from "spreader-utils";
 
 const names = ["firstName", "lastName", "age", "email"];
 const values = ["John", "Doe", null, ""];
-
 const result = spreader(names, values, 0);
 
 console.log(result);
 /*
 {
-  name: 'firstName, lastName',
-  numberDollar: '$1, $2',
-  value: ['John', 'Doe'],
+  name: "firstName, lastName",
+  numberDollar: "$1, $2",
+  value: ["John", "Doe"],
   objectify: { firstName: "John", lastName: "Doe" }
 }
 */
 ```
 
----
+### Custom Validation Example
 
-## 🧩 Custom Validation Example
+You can apply custom validation logic to filter values based on specific conditions:
 
 ```ts
 const customValidator = (val: any) => typeof val === "number" && val > 0;
-
 const result = spreader(["price", "discount"], [0, 15], 0, customValidator);
 /*
 {
-  name: 'discount',
-  numberDollar: '$1',
+  name: "discount",
+  numberDollar: "$1",
   value: [15]
 }
 */
 ```
 
----
-
-## 🛠 API
+## 🔧 API
 
 ### `spreader(names, values, lastNumber, isValid?)`
 
 #### Parameters
 
-| Name         | Type                    | Description                                                                                                                         |
-| ------------ | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `names`      | `string[]`              | Array of field names.                                                                                                               |
-| `values`     | `any[]`                 | Array of corresponding values.                                                                                                      |
-| `lastNumber` | `number`                | Offset used to continue `$` placeholders.                                                                                           |
-| `isValid`    | `(val: any) => boolean` | Optional custom validation function. Defaults to filtering out `null`, `undefined`, empty strings, empty arrays, and empty objects. |
+| Parameter    | Type                     | Description                                                                                  |
+|-------------|-------------------------|----------------------------------------------------------------------------------------------|
+| `names`     | `string[]`               | Array of field names.                                                                       |
+| `values`    | `any[]`                  | Array of corresponding values.                                                              |
+| `lastNumber`| `number`                 | Offset used for `$` placeholders.                                                           |
+| `isValid`   | `(val: any) => boolean`  | Optional custom validation function (default filters `null`, `undefined`, empty strings, etc.). |
 
 #### Returns
 
@@ -89,83 +83,59 @@ An object:
 
 ```ts
 {
-  name: string;        // Comma-separated names (e.g., "firstName, lastName")
+  name: string;        // Comma-separated field names (e.g., "firstName, lastName")
   numberDollar: string; // Comma-separated placeholders (e.g., "$1, $2")
   value: any[];        // Array of filtered values
-  objectify: {         // Object form of filtered name-value pairs
+  objectify: {         // Object representation of key-value pairs
     [key: string]: any
   }
 }
 ```
 
----
-
 ## 📁 Project Structure
 
 ```
-spreader/
-├── dist/
-│   └── index.js
-├── src/
-│   └── spreader.ts
-├── package.json
-├── README.md
-├── LICENSE
-└── tsconfig.json
+spreader-utils/
+├── src/                     # Source code directory
+│   ├── examples/            # Example scripts demonstrating usage
+│   │   ├── apiRequest.ts    # Handles API request operations
+│   │   ├── cliArgs.ts       # Parses command-line arguments efficiently
+│   │   ├── csvCleaner.ts    # Cleans and processes CSV data
+│   │   ├── formSummary.ts   # Generates summaries from form input data
+│   │   ├── gameInventory.ts # Manages game inventory dynamically
+│   │   └── logging.ts       # Provides logging utilities
+│   ├── tests/               # Unit tests for validation
+│   │   └── spreader.test.ts # Test suite for `spreader` functionality
+│   ├── index.ts             # Main entry point for the package
+│   └── spreader.ts          # Core logic for filtering and mapping values
+├── .gitignore               # Specifies ignored files in version control
+├── README.md                # Project documentation and usage guide
+├── package-lock.json        # Ensures consistent dependency versions
+├── package.json             # Contains package metadata and dependencies
+├── publish.js               # Automates package publishing process
+└── tsconfig.json            # TypeScript configuration for compiling source code
 ```
-
----
 
 ## 🧪 Local Testing
 
-Before publishing:
+Before publishing, ensure everything is working:
 
 ```bash
 npm run build
 npm pack --dry-run
 ```
 
----
-
 ## 📜 License
 
-MIT License
+This project is licensed under the **MIT License**.
 
-```
-MIT License
+## 👤 Author
 
-Copyright (c) 2025 Edidiong Obodom
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
-```
+**Edidiong Obodom**  
+GitHub: [@edidiong-obodom](https://github.com/Edidiong-Obodom)
 
 ---
 
-## 🔗 Author
-
-**Edidiong Obodom**
-[@edidiong-obodom](https://github.com/Edidiong-Obodom)
+Enjoy clean and efficient data filtering! 🚀✨
 
 ---
-
-Enjoy clean and reliable data mapping ✨
-
-```
-
-```
